@@ -5,11 +5,10 @@
         public static int solution(string[] input)
         {
             int result = 0;
+            Dictionary<int, int> values = new Dictionary<int, int>();
 
             foreach (var line in input)
             {
-                Dictionary<int, int> values = new Dictionary<int, int>();
-
                 char[] chrs = line.ToCharArray();
                 for (var i = 0; i < Utils.validnum.Length; i++)
                 {
