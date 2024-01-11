@@ -49,7 +49,6 @@
                     num = Convert.ToInt32($"{output.First().Value}{output.Last().Value}");
                 }
 
-                //Console.WriteLine($"{line} => {num}\nDebug: {string.Join(",", output.Select(kp => $"[{kp.Key}: {kp.Value}]"))}\n");
                 result += num;
                 values.Clear();
             }
