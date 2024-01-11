@@ -1,70 +1,19 @@
-﻿public class aoc_utils
+﻿namespace AdventOfCode_2023
 {
-    public static readonly string[] validstr = { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine" };
-    public static readonly string[] validnum = Enumerable.Range(0, 10).Select(x => x.ToString()).ToArray();
-}
-
-public class Program
-{
-    static int day1_solution(string[] input)
+    public class Program
     {
-        int result = 0;
-
-        foreach (var line in input)
+        public static void Main()
         {
-            Dictionary<int, int> values = new Dictionary<int, int>();
+            string[] input;
+            string path = $"{Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName}\\Inputs\\";
 
-            char[] chrs = line.ToCharArray();
-            for (var i = 0; i < aoc_utils.validnum.Length; i++)
-            {
-                for (var k = 0; k < chrs.Length; k++) 
-                { 
-                    if (chrs[k].ToString() == aoc_utils.validnum[i] && !values.ContainsKey(k))
-                    {
-                        values.Add(k, i);
-                        i = 0;
-                    }
-                }
-            }
-            for (var i = 0; i < line.Length; i++)
-            {
-                foreach (var word in aoc_utils.validstr.Select((value, i) => new { i, value }))
-                {
-                    int idx = line.IndexOf(word.value, i);
-                    if (idx > -1)
-                    {
-                        if (!values.ContainsKey(idx))
-                        {
-                            values.Add(idx, word.i);
-                            i = 0;
-                        }
-                    }
-                }
-            }
+            // Day 1
+            input = File.ReadAllLines($"{path}day1.txt");
+            Console.WriteLine($"Day 1 solution: {AdventOfCode_2023.Solutions.Day1.solution(input)}");
 
-            SortedDictionary<int, int> output = new SortedDictionary<int, int>(values);
-            int num = 0;
-            if (output.Count == 1)
-            {
-                num = Convert.ToInt32($"{output.First().Value}{output.First().Value}");
-            }
-            else
-            {
-                num = Convert.ToInt32($"{output.First().Value}{output.Last().Value}");
-            }
-
-            Console.WriteLine($"{line} => {num}\nDebug: {string.Join(",", output.Select(kp => $"[{kp.Key}: {kp.Value}]"))}\n");
-            result += num;
-            values.Clear();
+            // Day 2
+            input = File.ReadAllLines($"{path}day2.txt");
+            Console.WriteLine($"Day 2 solution: {AdventOfCode_2023.Solutions.Day2.solution(input)}");
         }
-
-        return result;
-    }
-
-    public static void Main()
-    {
-        // Day 1
-        string[] input = File.ReadAllLines("../../../day1.txt");
-        Console.WriteLine(day1_solution(input));
     }
 }
